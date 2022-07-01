@@ -19,6 +19,9 @@ gc routing queues list -a --pageSize=100 --name="MyQueueName" | jq -r .[].id
 # Step #3:  Find all of the users who have those users with the skill and then dump them a list of files
 cat users.json | jq -c '.[] | select( .skills[].name | contains("MySkillName"))' | jq -n  '[inputs]'| jq > skills-user.json
 
+#or for mulitple skills condition:
+#cat users.json | jq -c '.[] | select( .skills[].name =="skill_name2" and .skills[].name =="skill_name1" and .skills[].name =="skill_name3" and .skills[].name == "skill_name4")' | jq -n  '[inputs]'| jq > skills-user.json
+
 # Step #4:  Find out the total number of users with that skill
 cat skills-user.json | jq .[].id | wc -l
 
